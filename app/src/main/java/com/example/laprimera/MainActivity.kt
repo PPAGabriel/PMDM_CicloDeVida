@@ -10,12 +10,15 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -116,8 +119,11 @@ class MainActivity : ComponentActivity() {
 
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun Saludo(name: String, modifier: Modifier = Modifier) {
+    var nameC=remember{ mutableStateOf("") }
     var numbers = remember {mutableStateOf(0)}  // esto hace que siempre que cambie el valor de numbers se va a actualizar, remember es un observer
     //al ponerle el cero el compilador ya sabe que es un entero
 
@@ -160,7 +166,9 @@ fun Saludo(name: String, modifier: Modifier = Modifier) {
             Image(
                 painter = painterResource(R.drawable.baseline_cruelty_free_24),
                 contentDescription= "imagen",
-                modifier=modifier.height(48.dp).width(48.dp)
+                modifier= modifier
+                    .height(48.dp)
+                    .width(48.dp)
                 )
             }
 
@@ -170,6 +178,23 @@ fun Saludo(name: String, modifier: Modifier = Modifier) {
             fontSize = 30.sp,
             color = Color.Yellow
         )
+
+        // campo de texto para rellenar
+        OutlinedTextField(
+            value = nameC.value,
+            onValueChange = {
+                nameC.value = it
+            },
+            label = { Text(
+                text = "Introduzca un nombre",
+                color= Color.Yellow ) }
+        )
+
+        Text(text = "Nombre escrito: ${nameC.value}",
+            fontSize = 25.sp,
+            modifier = Modifier.padding(vertical = 20.dp),
+            color=Color.Red
+            )
     }
 }
 
