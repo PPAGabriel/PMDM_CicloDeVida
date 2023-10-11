@@ -14,8 +14,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,15 +24,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.laprimera.R
 import com.example.laprimera.nameC
-import com.example.laprimera.numbers
-import com.example.laprimera.randomNumber
 
 @OptIn(ExperimentalMaterial3Api::class)
-class View {
+open class UI {
 }
 
 @Composable
- fun InterfazUsuario(name: String, modifier: Modifier = Modifier) {
+ fun InterfazUsuario(miViewModel: MyViewModel,name: String, modifier: Modifier = Modifier) {
     // var nameC= remember{ mutableStateOf("") }
     // var numbers = remember { mutableStateOf(0) }  esto hace que siempre que cambie el valor de numbers se va a actualizar, remember es un observer
     //al ponerle el cero el compilador ya sabe que es un entero
@@ -63,7 +59,7 @@ class View {
 
         Button(
             onClick = {
-                randomNumber()
+                miViewModel.crearRandom()
                 Log.d("Funciones","Click!!!!!")
             },
             modifier= Modifier
@@ -83,7 +79,7 @@ class View {
         }
 
         Text(
-            text = "Numero random: ${numbers.value}",
+            text = "Numero random: ${miViewModel.getNumero()}",
             modifier = modifier,
             fontSize = 30.sp,
             color = miColor
@@ -101,11 +97,13 @@ class View {
             modifier=modifier.padding(0.dp,20.dp)
         )
 
-        Text(text = "Nombre escrito: ${nameC.value}",
-            fontSize = 25.sp,
-            modifier = Modifier.padding(vertical = 20.dp),
-            color= Color.Red
-        )
+        if (nameC.value.length>3){
+            Text(text = "Nombre escrito: ${nameC.value}",
+                fontSize = 25.sp,
+                modifier = Modifier.padding(vertical = 20.dp),
+                color= Color.Red
+            )
+        }
     }
 }
 
@@ -113,7 +111,7 @@ class View {
 @Composable
 fun GreetingPreview() {
     LaPrimeraTheme {
-        InterfazUsuario("prueba")
+        InterfazUsuario(miViewModel=MyViewModel(), "prueba" )
     }
 }
 

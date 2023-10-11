@@ -20,14 +20,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.laprimera.ui.theme.InterfazUsuario
-import com.example.laprimera.ui.theme.View
+import com.example.laprimera.ui.theme.UI
 import com.example.laprimera.ui.theme.LaPrimeraTheme
 import com.example.laprimera.ui.theme.InterfazUsuario
+import com.example.laprimera.ui.theme.MyViewModel
 import java.util.function.Function
 import kotlin.jvm.internal.FunctionReference
 
 var name:String = "Android" //var es para variables
-var numbers = mutableStateOf(0)
+// var numbers = mutableStateOf(0)
 var nameC= mutableStateOf("")
 class MainActivity : ComponentActivity() {
 
@@ -36,11 +37,12 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val miViewModel:MyViewModel= MyViewModel()
         setContent {
             LaPrimeraTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = Color(100,0,255)) {
-                    InterfazUsuario(name)
+                    InterfazUsuario(miViewModel,name)
                 }
             }
         }
@@ -107,9 +109,10 @@ class MainActivity : ComponentActivity() {
         Log.e(TAG,"He llegado al Destroy")
     }
 }
-
+/*
 fun randomNumber(){
     numbers.value=(0..10).random()
 }
+ */
 
 
