@@ -29,7 +29,7 @@ import kotlin.jvm.internal.FunctionReference
 
 var name:String = "Android" //var es para variables
 // var numbers = mutableStateOf(0)
-var nameC= mutableStateOf("")
+//var nameC= mutableStateOf("")
 class MainActivity : ComponentActivity() {
 
     val TAG:String = "Estado" //val es para constantes

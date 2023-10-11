@@ -9,11 +9,15 @@ class MyViewModel(): ViewModel() {
     private val TAG_LOG: String="Mensaje de ViewModel"
 
     var _numbers= mutableStateOf(0)
+    var _nameC= mutableStateOf("")
 
     init{
         Log.d(TAG_LOG,"Inicializamos ViewModel")
     }
 
+    fun getNombre():String{
+        return _nameC.value
+    }
     fun crearRandom(){
         _numbers.value=(0..10).random()
         Log.d(TAG_LOG,"creamos random ${_numbers.value}")

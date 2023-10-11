@@ -23,7 +23,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.laprimera.R
-import com.example.laprimera.nameC
 
 @OptIn(ExperimentalMaterial3Api::class)
 open class UI {
@@ -87,9 +86,9 @@ open class UI {
 
         // campo de texto para rellenar
         OutlinedTextField(
-            value = nameC.value,
+            value = miViewModel.getNombre(),
             onValueChange = {
-                nameC.value = it
+                miViewModel._nameC.value = it
             },
             label = { Text(
                 text = "Introduzca un nombre",
@@ -97,8 +96,8 @@ open class UI {
             modifier=modifier.padding(0.dp,20.dp)
         )
 
-        if (nameC.value.length>3){
-            Text(text = "Nombre escrito: ${nameC.value}",
+        if (miViewModel.getNombre().length>3){
+            Text(text = "Nombre escrito: ${miViewModel.getNombre()}",
                 fontSize = 25.sp,
                 modifier = Modifier.padding(vertical = 20.dp),
                 color= Color.Red
