@@ -58,7 +58,8 @@ open class UI {
 
         Button(
             onClick = {
-                miViewModel.crearRandom()
+                miViewModel.crearRandomList()
+                //miViewModel.crearRandom()
                 Log.d("Funciones","Click!!!!!")
             },
             modifier= Modifier
@@ -77,12 +78,20 @@ open class UI {
             )
         }
 
-        Text(
-            text = "Numero random: ${miViewModel.getNumero()}",
-            modifier = modifier,
-            fontSize = 30.sp,
-            color = miColor
-        )
+        if (miViewModel.getNumberList().isEmpty()){
+            Text(text = "Lista random vacía",
+                fontSize = 30.sp,
+                color = Color.Red
+            )
+        }else{
+            Text(
+                text= "Lista random: ${miViewModel.getNumberList()}",
+                //text = "Numero random: ${miViewModel.getNumero()}",
+                modifier = modifier,
+                fontSize = 30.sp,
+                color = miColor
+            )
+        }
 
         // campo de texto para rellenar
         OutlinedTextField(
