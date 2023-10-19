@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,81 +38,16 @@ open class UI {
     var miColor= Color(255,222,0)
     var saludo= stringResource(R.string.greeting)
     Column {
-        Image(
-            painter = painterResource(R.drawable.pikachu),
-            contentDescription= "imagen"
-        )
 
-        Text(
-            text = "$saludo, $name",
-            modifier = modifier.align(Alignment.CenterHorizontally),
-            fontSize = 40.sp,
-            color = miColor
-        )
+        imagen()
 
-        Text(
-            text = "Soy Pikachu!",
-            modifier = modifier.padding(15.dp),
-            fontSize = 60.sp,
-            color = Color.Red
-        )
+        textos(miColor, saludo, name, modifier)
 
-        Button(
-            onClick = {
-                miViewModel.crearRandomList()
-                //miViewModel.crearRandom()
-                Log.d("Funciones","Click!!!!!")
-            },
-            modifier= Modifier
-                .height(90.dp)
-                .width(160.dp),
-            colors= ButtonDefaults.buttonColors(miColor)
-        ) {
-            Text(text = "Pincha aquí",
-                fontSize = 15.sp,
-                color = Color.Red
-            )
-            Image(
-                painter = painterResource(R.drawable.rocket),
-                contentDescription= "imagen",
-                modifier= modifier
-            )
-        }
+        boton(miViewModel, miColor, modifier)
 
-        if (miViewModel.getNumberList().isEmpty()){
-            Text(text = "Lista random vacía",
-                fontSize = 30.sp,
-                color = Color.Red
-            )
-        }else{
-            Text(
-                text= "Lista random: ${miViewModel.getNumberList()}",
-                //text = "Numero random: ${miViewModel.getNumero()}",
-                modifier = modifier,
-                fontSize = 30.sp,
-                color = miColor
-            )
-        }
+        textoARellenar(miViewModel, miColor, modifier)
 
-        // campo de texto para rellenar
-        OutlinedTextField(
-            value = miViewModel.getNombre(),
-            onValueChange = {
-                miViewModel._nameC.value = it
-            },
-            label = { Text(
-                text = "Introduzca un nombre",
-                color= miColor ) },
-            modifier=modifier.padding(0.dp,20.dp)
-        )
 
-        if (miViewModel.getNombre().length>3){
-            Text(text = "Nombre escrito: ${miViewModel.getNombre()}",
-                fontSize = 25.sp,
-                modifier = Modifier.padding(vertical = 20.dp),
-                color= Color.Red
-            )
-        }
     }
 }
 
@@ -124,22 +60,88 @@ fun GreetingPreview() {
 }
 
 @Composable
-fun chat(){
-    TODO("Not yet implemented")
+fun  textos(miColor:Color,saludo:String,name:String,modifier: Modifier){
+    Text(
+        text = "$saludo, $name",
+        modifier = modifier,
+        textAlign = TextAlign.Center,
+        fontSize = 40.sp,
+        color = miColor
+    )
+
+    Text(
+        text = "Soy Pikachu!",
+        modifier = modifier.padding(15.dp),
+        fontSize = 60.sp,
+        color = Color.Red
+    )
+}
+
+@Composable
+fun imagen(){
+    Image(
+        painter = painterResource(R.drawable.pikachu),
+        contentDescription= "imagen"
+    )
 }
 @Composable
-fun login(){
-    //texto y boton para loguear
-    texto_descriptivo(texto = "Fallo de login")
+fun boton(miViewModel: MyViewModel,miColor: Color,modifier: Modifier){
+    Button(
+        onClick = {
+            miViewModel.crearRandomList()
+            //miViewModel.crearRandom()
+            Log.d("Funciones","Click!!!!!")
+        },
+        modifier= Modifier
+            .height(90.dp)
+            .width(160.dp),
+        colors= ButtonDefaults.buttonColors(miColor)
+    ) {
+        Text(text = "Pincha aquí",
+            fontSize = 15.sp,
+            color = Color.Red
+        )
+        Image(
+            painter = painterResource(R.drawable.rocket),
+            contentDescription= "imagen",
+            modifier= modifier
+        )
+    }
+
+    if (miViewModel.getNumberList().isEmpty()){
+        Text(text = "Lista random vacía",
+            fontSize = 30.sp,
+            color = Color.Red
+        )
+    }else{
+        Text(
+            text= "Lista random: ${miViewModel.getNumberList()}",
+            //text = "Numero random: ${miViewModel.getNumero()}",
+            modifier = modifier,
+            fontSize = 30.sp,
+            color = miColor
+        )
+    }
 }
+
 @Composable
-fun texto_descriptivo(texto:String){
-    //texto descriptivo
-    Text(text = texto)
-}
-@Composable
-fun interfazUsuario(){
-    login()
-    texto_descriptivo(texto = "Hola texto")
-    chat()
+fun textoARellenar(miViewModel: MyViewModel,miColor: Color,modifier: Modifier){
+    OutlinedTextField(
+        value = miViewModel.getNombre(),
+        onValueChange = {
+            miViewModel._nameC.value = it
+        },
+        label = { Text(
+            text = "Introduzca un nombre",
+            color= miColor ) },
+        modifier=modifier.padding(0.dp,20.dp)
+    )
+
+    if (miViewModel.getNombre().length>3){
+        Text(text = "Nombre escrito: ${miViewModel.getNombre()}",
+            fontSize = 25.sp,
+            modifier = Modifier.padding(vertical = 20.dp),
+            color= Color.Red
+        )
+    }
 }
