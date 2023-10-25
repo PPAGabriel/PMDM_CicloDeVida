@@ -129,7 +129,7 @@ fun textoARellenar(miViewModel: MyViewModel,miColor: Color,modifier: Modifier){
     OutlinedTextField(
         value = miViewModel.getNombre(),
         onValueChange = {
-            miViewModel._nameC.value = it
+            newNombre -> miViewModel.updNombre(newNombre)
         },
         label = { Text(
             text = "Introduzca un nombre",
