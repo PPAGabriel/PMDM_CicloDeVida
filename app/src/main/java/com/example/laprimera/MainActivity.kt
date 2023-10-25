@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             LaPrimeraTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = Color(100,0,255)) {
+                Surface(modifier = Modifier.fillMaxSize(), color = Color(100,0,20)) {
                     InterfazUsuario(miViewModel,name)
                 }
             }

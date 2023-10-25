@@ -5,6 +5,7 @@ package com.example.laprimera.ui.theme
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -31,23 +32,20 @@ open class UI {
 
 @Composable
  fun InterfazUsuario(miViewModel: MyViewModel,name: String, modifier: Modifier = Modifier) {
-    // var nameC= remember{ mutableStateOf("") }
-    // var numbers = remember { mutableStateOf(0) }  esto hace que siempre que cambie el valor de numbers se va a actualizar, remember es un observer
-    //al ponerle el cero el compilador ya sabe que es un entero
 
-    var miColor= Color(255,222,0)
+    var miColor= Color(220,122,255)
     var saludo= stringResource(R.string.greeting)
     Column {
+    Column {
+        ronda(miViewModel,modifier = modifier,miColor=miColor)
+    }
 
-        imagen()
+        botonesSimon()
 
-        textos(miColor, saludo, name, modifier)
-
-        boton(miViewModel, miColor, modifier)
-
-        textoARellenar(miViewModel, miColor, modifier)
-
-
+        Row {
+            botonStart(miViewModel, miColor = miColor, modifier = modifier)
+            botonRound(miViewModel, miColor = miColor, modifier = modifier)
+        }
     }
 }
 
@@ -58,7 +56,104 @@ fun GreetingPreview() {
         InterfazUsuario(miViewModel=MyViewModel(), "prueba" )
     }
 }
+@Composable()
+fun ronda(miViewModel: MyViewModel,modifier: Modifier,miColor: Color) {
+    Text(
+        text = "Ronda:",
+        modifier = modifier
+            .padding(250.dp,0.dp,0.dp,0.dp),
+        textAlign = TextAlign.Right,
+        fontSize = 40.sp,
+        color = Color.White
+    )
 
+    if (miViewModel.getNumero2() > 10) {
+        Text(
+            text = "${miViewModel.getNumero2()}",
+            fontSize = 60.sp,
+            modifier = Modifier.padding(300.dp,0.dp,0.dp,0.dp),
+            color = Color.White
+        )
+    } else {
+        Text(
+            text = "${miViewModel.getNumero2()}",
+            fontSize = 40.sp,
+            modifier = Modifier.padding(300.dp,0.dp,0.dp,0.dp),
+            color = Color.White
+        )
+    }
+}
+@Composable
+fun botonStart(miViewModel: MyViewModel,miColor: Color,modifier: Modifier){
+    Button(
+        onClick = {
+            miViewModel.cambiarEstado()
+        },
+        modifier= Modifier
+            .height(90.dp)
+            .width(160.dp),
+        colors= ButtonDefaults.buttonColors(miColor)
+    ) {
+        Text(
+            text = miViewModel.getNombre2(),
+            textAlign = TextAlign.Center,
+            fontSize = 20.sp,
+            color = Color.White
+        )
+    }
+}
+@Composable
+fun botonRound(miViewModel: MyViewModel,miColor: Color,modifier: Modifier){
+    Button(
+        onClick = {
+            miViewModel.aumentoN()
+            Log.d("Funciones","Click!!!!!")
+        },
+        modifier= Modifier
+            .height(90.dp)
+            .width(160.dp)
+            .padding(70.dp, 0.dp, 0.dp, 0.dp),
+        colors= ButtonDefaults.buttonColors(miColor)
+    ) {
+        Image(
+            painter = painterResource(R.drawable.arrow),
+            contentDescription = "imagen",
+            modifier = modifier
+        )
+    }
+}
+
+@Composable
+fun botonesSimon(){
+    Row (modifier = Modifier.padding(0.dp,100.dp,0.dp,0.dp)){
+        columnButtonSimon(color = Color.Cyan)
+        columnButtonSimon(color = Color.Green)
+    }
+    Row (){
+        columnButtonSimon(color = Color.Red)
+        columnButtonSimon(color = Color.Yellow)
+    }
+}
+
+@Composable
+fun columnButtonSimon(color: Color){
+    Column {
+        Button(onClick = {
+            /*TODO*/
+        },
+            modifier = Modifier
+                .height(200.dp)
+                .width(200.dp)
+                .padding(50.dp, 50.dp)
+            ,
+            colors = ButtonDefaults.buttonColors(color)
+        ){
+
+        }
+    }
+}
+
+/////////////////////////////////////////////
 @Composable
 fun  textos(miColor:Color,saludo:String,name:String,modifier: Modifier){
     Text(
@@ -85,45 +180,27 @@ fun imagen(){
     )
 }
 @Composable
-fun boton(miViewModel: MyViewModel,miColor: Color,modifier: Modifier){
+fun boton(miViewModel: MyViewModel,miColor: Color,modifier: Modifier) {
     Button(
         onClick = {
             miViewModel.crearRandomList()
             //miViewModel.crearRandom()
-            Log.d("Funciones","Click!!!!!")
+            Log.d("Funciones", "Click!!!!!")
         },
-        modifier= Modifier
+        modifier = Modifier
             .height(90.dp)
             .width(160.dp),
-        colors= ButtonDefaults.buttonColors(miColor)
+        colors = ButtonDefaults.buttonColors(miColor)
     ) {
-        Text(text = "Pincha aquí",
-            fontSize = 15.sp,
-            color = Color.Red
-        )
         Image(
             painter = painterResource(R.drawable.rocket),
-            contentDescription= "imagen",
-            modifier= modifier
-        )
-    }
-
-    if (miViewModel.getNumberList().isEmpty()){
-        Text(text = "Lista random vacía",
-            fontSize = 30.sp,
-            color = Color.Red
-        )
-    }else{
-        Text(
-            text= "Lista random: ${miViewModel.getNumberList()}",
-            //text = "Numero random: ${miViewModel.getNumero()}",
-            modifier = modifier,
-            fontSize = 30.sp,
-            color = miColor
+            contentDescription = "imagen",
+            modifier = modifier
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun textoARellenar(miViewModel: MyViewModel,miColor: Color,modifier: Modifier){
     OutlinedTextField(
