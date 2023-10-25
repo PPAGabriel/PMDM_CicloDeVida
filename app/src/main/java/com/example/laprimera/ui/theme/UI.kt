@@ -92,7 +92,8 @@ fun botonStart(miViewModel: MyViewModel,miColor: Color,modifier: Modifier){
         },
         modifier= Modifier
             .height(90.dp)
-            .width(160.dp),
+            .width(160.dp)
+            .padding(35.dp,0.dp,0.dp,0.dp),
         colors= ButtonDefaults.buttonColors(miColor)
     ) {
         Text(
