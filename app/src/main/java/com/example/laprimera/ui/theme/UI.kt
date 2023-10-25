@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -40,7 +41,7 @@ open class UI {
         ronda(miViewModel,modifier = modifier,miColor=miColor)
     }
 
-        botonesSimon()
+        colorBotones()
 
         Row {
             botonStart(miViewModel, miColor = miColor, modifier = modifier)
@@ -124,21 +125,24 @@ fun botonRound(miViewModel: MyViewModel,miColor: Color,modifier: Modifier){
 }
 
 @Composable
-fun botonesSimon(){
-    Row (modifier = Modifier.padding(0.dp,100.dp,0.dp,0.dp)){
-        columnButtonSimon(color = Color.Cyan)
-        columnButtonSimon(color = Color.Green)
+fun colorBotones(){
+    Row (
+        modifier = Modifier.padding(0.dp,100.dp,0.dp,0.dp)){
+        configColorButton(color = Color.Cyan)
+        configColorButton(color = Color.Green)
     }
     Row (){
-        columnButtonSimon(color = Color.Red)
-        columnButtonSimon(color = Color.Yellow)
+        configColorButton(color = Color.Red)
+        configColorButton(color = Color.Yellow)
     }
 }
 
 @Composable
-fun columnButtonSimon(color: Color){
+fun configColorButton(color: Color){
     Column {
-        Button(onClick = {
+        Button(
+            shape = RectangleShape,
+            onClick = {
             /*TODO*/
         },
             modifier = Modifier
